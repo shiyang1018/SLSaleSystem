@@ -62,63 +62,83 @@ $(document).ready(function(){
 	});
 	
 	/**modifypassword add by bdqn_hl 2014-2-28 end*/
+	
+	/**
+	 * menuList
+	 */
+	var result ="";
+	var json = eval('('+tt+')');
+	alert(tt);
+	for(var i=0;i<json.length;i++){
+		/*<li class="nav-header hidden-tablet"
+			onclick="$('#test1').toggle(500);">后台管理</li>
+		<li>
+			<ul id="test1" class="nav nav-tabs nav-stacked">
+				<li><a class="ajax-link" href="#"><i
+						class="icon-home"></i><span class="hidden-tablet">用户管理</span>
+				</a>
+				</li>
+				<li><a class="ajax-link" href="#"><i
+						class="icon-eye-open"></i><span class="hidden-tablet">角色管理</span>
+				</a>
+				</li>
+				<li><a class="ajax-link" href="#"><i
+						class="icon-edit"></i><span class="hidden-tablet">权限管理</span>
+				</a>
+				</li>
+				<li><a class="ajax-link" href="#"><i
+						class="icon-list-alt"></i><span class="hidden-tablet">数据字典</span>
+				</a>
+				</li>
+			</ul>
+		</li>*/
+		
+		//config main menu
+		result = result+'<li class="nav-header hidden-tablet" onclick="$(\'#test'+i+'\').toggle(500);" style="cursor:pointer">'+json[i].mainMenu.functionName+'</li>';
+		//config sub menus
+		result = result+"<li><ul id=\"test"+i+"\" class=\"nav nav-tabs nav-stacked\">";
+		for(var j=0;j<json[i].subMenu.length;j++){
+			var pic;
+			switch(j){
+			case 0:
+				pic = "icon-home";
+				break;
+			case 1:
+				pic = "icon-eye-open";
+				break;
+			case 2:
+				pic = "icon-edit";
+				break;
+			case 3:
+				pic = "icon-list-alt";
+				break;
+			case 4:
+				pic = "icon-font";
+				break;
+			case 5:
+				pic = "icon-picture";
+				break;
+			default:
+				pic = "icon-picture";
+				break;
+			}
+			result = result+"<li><a class=\"ajax-link\" href=\""+json[i].subMenu[j].funcUrl+"\"><i class="+pic+"></i><span class=\"hidden-tablet\">"+json[i].subMenu[j].functionName+"</span></a></li>";
+		}
+			result = result + "</ul></li>";
+	}
+	$("#menus").append(result);
+	
+	/**
+	 * menuList end
+	 */
+	
+	
     var d = new Date();
 //    $('#a_cdate').val((d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear());
 //    $('#reply_createTime').val((d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear());
     $('#a_cdate').val(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate());
     $('#reply_createTime').val(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate());
 	
-	/**menu add by bdqn_hl 2014-2-27 start*/
-	var result = "";
-	var json = eval('(' + tt + ')');
-	//alert(tt);
-	//$("#jsonstr").append(tt);
-	for(var i = 0;i<json.length;i++){
-		/*
-		<li class="nav-header hidden-tablet" onclick="$('#test1').toggle(500);">后台管理</li>
-		<li>
-			<ul class="nav nav-tabs nav-stacked" id="test1">
-			<li><a class="ajax-link" href="index.html"><i class="icon-home"></i><span class="hidden-tablet">用户管理</span></a></li>
-			<li><a class="ajax-link" href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet">角色管理</span></a></li>
-			<li><a class="ajax-link" href="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> 权限管理</span></a></li>
-			<li><a class="ajax-link" href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet">商品管理</span></a></li>
-			<li><a class="ajax-link" href="typography.html"><i class="icon-font"></i><span class="hidden-tablet">商品套餐管理</span></a></li>
-			<li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet">基础信息</span></a></li>
-			<li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet">数据字典</span></a></li>
-			</ul>
-		</li>
-		 */
-		
-		//config main menu
-		result = result + '<li class="nav-header hidden-tablet" onclick="$(\'#test'+i+'\').toggle(500);" style="cursor:pointer;">'+json[i].mainMenu.functionName+'</li>';
-		//config sub menus
-		result = result + "<li><ul class=\"nav nav-tabs nav-stacked\" id=\"test"+i+"\">";
-		
-		for(var j=0;j<json[i].subMenus.length;j++){
-			var pic;
-			switch(j)
-			{
-			case 0:
-				pic = "icon-home";break;
-			case 1:
-				pic = "icon-eye-open"; break;
-			case 2:
-				pic = "icon-edit";break;
-			case 3:
-				pic = "icon-list-alt";break;
-			case 4:
-				pic = "icon-font";break;
-			case 5:
-				pic = "icon-picture";break;
-			default:
-				pic = "icon-picture";break;
-			}
-			result = result + "<li><a class=\"ajax-link\" style=\"cursor:pointer;\" href=\""+json[i].subMenus[j].funcUrl +"\"><i class="+pic+"></i><span class=\"hidden-tablet\">"+json[i].subMenus[j].functionName + "</span></a></li>";
-		}
-		result = result +"</ul></li>";
-	}
-	$("#menus").append(result);
-	/**menu add by bdqn_hl 2014-2-27 end*/
 	
 	
 	
@@ -141,7 +161,7 @@ $(document).ready(function(){
 	
 	function switch_theme(theme_name)
 	{
-		$('#bs-css').attr('href','css/bootstrap-'+theme_name+'.css');
+		$('#bs-css').attr('href','/statics/css/bootstrap-'+theme_name+'.css');
 	}
 	
 	//ajax menu checkbox

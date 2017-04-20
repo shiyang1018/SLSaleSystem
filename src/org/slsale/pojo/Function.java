@@ -9,17 +9,19 @@ public class Function extends Base {
 	private String funcUrl;
 	private Integer parentId;
 	private Date creationTime;
+	private Integer roleId;
 	public Function() {
 		super();
 	}
 	public Function(Integer id, String functionName, String funcUrl,
-			Integer parentId, Date creationTime) {
+			Integer parentId, Date creationTime, Integer roleId) {
 		super();
 		this.id = id;
 		this.functionName = functionName;
 		this.funcUrl = funcUrl;
 		this.parentId = parentId;
 		this.creationTime = creationTime;
+		this.roleId = roleId;
 	}
 	public Integer getId() {
 		return id;
@@ -51,5 +53,12 @@ public class Function extends Base {
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
+	public Integer getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	
 	
 }
