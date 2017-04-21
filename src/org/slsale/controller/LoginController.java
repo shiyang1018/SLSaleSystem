@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.slsale.common.Constants;
+import org.slsale.common.RedisAPI;
 import org.slsale.pojo.Authority;
 import org.slsale.pojo.Function;
 import org.slsale.pojo.Menu;
@@ -33,6 +34,10 @@ public class LoginController extends BaseController{
 	private UserService userService;
 	@Resource
 	private FunctionService functionService;
+	@Resource
+	private RedisAPI redisAPI;
+	
+	
 	@RequestMapping("/main.html")
 	public ModelAndView main(HttpSession session){
 		logger.debug("main==============");
@@ -42,20 +47,36 @@ public class LoginController extends BaseController{
 		 if(user != null){
 			 Map<String,Object> model = new HashMap<String, Object>();
 			 model.put("user", user);
-			 //根据当前用户获取菜单列表
-			 mList = getFuncByCurrentUser(user.getRoleId());
-			 //json
-			 if(mList!=null){
-				 JSONArray jsonArray = JSONArray.fromObject(mList);
-				 String jsonString= jsonArray.toString();
-				 logger.debug("jsonString=============>"+jsonString);
-				 model.put("mList", jsonString);
-				 session.setAttribute(Constants.SESSION_BASE_MODEL, model);
-				 return new ModelAndView("main",model);
+			 
+			 //redis里有没有数据  key:menuList+roleID  value:mList
+			 if(!redisAPI.exist("menuList"+user.getRoleId())){//没有对应的菜单
+				//根据当前用户获取菜单列表
+				 mList = getFuncByCurrentUser(user.getRoleId());
+				 //json
+				 if(mList!=null){
+					 JSONArray jsonArray = JSONArray.fromObject(mList);
+					 String jsonString= jsonArray.toString();
+					 logger.debug("jsonString=============>"+jsonString);
+					 model.put("mList", jsonString);
+					 redisAPI.set("menuList"+user.getRoleId(), jsonString);
+				 }
+			 
+			 }else {//redis里有数据，直接从redis里取
+				String redisMenuListKeyString =  redisAPI.get("menuList"+user.getRoleId());
+				logger.debug("redisMenuListKeyString====================="+redisMenuListKeyString);
+				if(redisMenuListKeyString !=null && !redisMenuListKeyString.equals("")){
+					model.put("mList", redisMenuListKeyString);
+				}else {
+					return new ModelAndView("redirect:/");
+				}
 			 }
+			 session.setAttribute(Constants.SESSION_BASE_MODEL, model);
+			 
+			 return new ModelAndView("main",model);
 		 }
 		return new ModelAndView("redirect:/");
 	}
+	
 	//根据当前用户角色id获取对应的菜单
 	protected List<Menu> getFuncByCurrentUser(int roleId){
 		List<Menu> menuList = new ArrayList<Menu>();
@@ -118,7 +139,13 @@ public class LoginController extends BaseController{
 		}
 	}
 
-
+	@RequestMapping("/logout.html")
+	public String logout(HttpSession session){
+		session.removeAttribute(Constants.SESSION_USER);
+		session.invalidate();
+		this.setCurrentUser(null);
+		return "index";
+	}
 
 
 

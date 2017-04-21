@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 		<footer>
-			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">Muhammad Usman</a> 2012</p>
-			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
+			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">yang</a> 2012</p>
+			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">yang</a></p>
 		</footer>
 		
 	</div><!--/.fluid-container-->

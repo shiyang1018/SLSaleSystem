@@ -68,74 +68,48 @@ body {
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> </a> <a class="brand" href="index.html"> <img
-					alt="Charisma Logo" src="/statics/img/logo20.png" /> <span>Charisma</span>
+					class="icon-bar"></span> </a> <a class="brand" href="/main.html"> <img
+					alt="Charisma Logo" src="/statics/img/logo20.png" /> <span>SL会员商城</span>
 				</a>
 
 				<!-- theme selector starts -->
 				<div class="btn-group pull-right theme-container">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-tint"></i><span class="hidden-phone"> Change
-							Theme / Skin</span> <span class="caret"></span> </a>
-					<ul class="dropdown-menu" id="themes">
-						<li><a data-value="classic" href="#"><i
-								class="icon-blank"></i> Classic</a>
-						</li>
-						<li><a data-value="cerulean" href="#"><i
-								class="icon-blank"></i> Cerulean</a>
-						</li>
-						<li><a data-value="cyborg" href="#"><i class="icon-blank"></i>
-								Cyborg</a>
-						</li>
-						<li><a data-value="redy" href="#"><i class="icon-blank"></i>
-								Redy</a>
-						</li>
-						<li><a data-value="journal" href="#"><i
-								class="icon-blank"></i> Journal</a>
-						</li>
-						<li><a data-value="simplex" href="#"><i
-								class="icon-blank"></i> Simplex</a>
-						</li>
-						<li><a data-value="slate" href="#"><i class="icon-blank"></i>
-								Slate</a>
-						</li>
-						<li><a data-value="spacelab" href="#"><i
-								class="icon-blank"></i> Spacelab</a>
-						</li>
-						<li><a data-value="united" href="#"><i class="icon-blank"></i>
-								United</a>
-						</li>
-					</ul>
-				</div>
-				<!-- theme selector ends -->
-
-				<!-- user dropdown starts -->
-				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span class="hidden-phone"> admin</span>
-						<span class="caret"></span> </a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a>
-						</li>
-						<li class="divider"></li>
-						<li><a href="login.html">Logout</a>
-						</li>
-					</ul>
-				</div>
-				<!-- user dropdown ends -->
-
-				<div class="top-nav nav-collapse">
 					<ul class="nav">
-						<li><a href="#">Visit Site</a>
-						</li>
-						<li>
-							<form class="navbar-search pull-left">
-								<input placeholder="Search" class="search-query span2"
-									name="query" type="text">
-							</form></li>
+						<li><a href="#">你好,${user.loginCode }</a></li>
+						<li><a href="#">角色：${user.roleName }</a></li>
+						<li><a href="/main.html">首页</a></li>
+						<li><a href="#">购物车</a></li>
+						<li><a href="#">留言板</a></li>
+						<li><a href="javascript:void();" class="btn-setting modifypwd">修改密码</a></li>
+						<li><a href="/logout.html">注销</a></li>
 					</ul>
 				</div>
-				<!--/.nav-collapse -->
+				
+	<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>修改密码</h3>
+		</div>
+		<div class="modal-body">
+			<p>
+			<label>请输入原密码：</label>
+			<input id="oldpassword" type="password">
+			<span style="color:red;font-weight:bold;">*</span>
+			<label>请输入新密码：</label>
+			<input id="newpassword" type="password">
+			<span style="color:red;font-weight:bold;">*新密码必须6位以上</span>
+			<label>再次输入新密码：</label>
+			<input id="aginpassword" type="password">
+			<span style="color:red;font-weight:bold;">*</span>
+			</p>
+			<p id="modifypwdtip"></p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">取消</a>
+			<a href="#" id="modifySavePassword" class="btn btn-primary">修改</a>
+		</div>
+	</div>
+				<!-- theme selector ends -->
 			</div>
 		</div>
 	</div>

@@ -68,7 +68,7 @@ $(document).ready(function(){
 	 */
 	var result ="";
 	var json = eval('('+tt+')');
-	alert(tt);
+	
 	for(var i=0;i<json.length;i++){
 		/*<li class="nav-header hidden-tablet"
 			onclick="$('#test1').toggle(500);">后台管理</li>
